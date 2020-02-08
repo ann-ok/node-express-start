@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    h1
+        | Добавление элемента в список
+        br
+        | с помощью js
+    form(method='post' action='/')
+        label(for='input-text')
+            | Введите текст элемента:
+        input(id='input-text' type='text' name='text')
+        input(id='button-add' type='submit' value='Добавить')
+
+    div
+        h2 Сортировка:
+        form(id='sort-form' method='get' action='/')
+            input(type='radio' name='sortType' value='id-asc')
+            | По возрастанию номера
+            br
+            input(type='radio' name='sortType' value='id-desc')
+            | По убыванию номера
+            br
+            input(type='radio' name='sortType' value='text-asc')
+            | По алфавиту
+            br
+            input(type='radio' name='sortType' value='text-desc')
+            | По алфавиту в обратном порядке
+            br
+    div
+        h2 Список элементов:
+        ul
+            each row in rows
+                li(id=row.id)
+                    = row.id
+                    = ') '
+                    = row.text
+                    br
+                    input(type='button' name='btnEdit' value='ред.')
+                    input(type='button' name='btnDel' value='X')
+                    br
+    script.
+        sort_type = '#{sortType}';
+    script(src='/javascripts/script.js')

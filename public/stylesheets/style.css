@@ -1,0 +1,20 @@
+body
+{
+    padding: 10px 50px;
+}
+
+h1
+{
+    color: #6d22c8;
+}
+
+#input-text
+{
+    display: block;
+    margin-bottom: 20px;
+}
+
+span
+{
+    margin-right: 10px;
+}
