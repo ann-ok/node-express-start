@@ -18,3 +18,29 @@ span
 {
     margin-right: 10px;
 }
+
+span[name="text"]
+{
+    width: 200px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+}
+
+ul
+{
+    padding-left: 10px;
+    list-style-type: none;
+}
+
+li
+{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.index
+{
+    font-weight: bold;
+    padding-right: 5px;
+}

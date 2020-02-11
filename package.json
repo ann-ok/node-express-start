@@ -14,5 +14,8 @@
     "pug": "2.0.0-beta11",
     "mysql2": "~2.1.0",
     "body-parser": "latest"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
