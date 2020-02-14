@@ -1,35 +1,8 @@
 extends layout
 
 block content
-    h1
-        | Добавление элемента в список
-        br
-        | с помощью js
-
-    form(method='post' action='/')
-        label(for='input-text')
-            | Введите текст элемента:
-        input(id='input-text' type='text' name='text')
-        input(id='button-add' type='submit' value='Добавить')
-
+    h1 Добро пожаловать
     div
-        h2 Сортировка:
-        form(id='sort-form' method='get' action='/')
-
+        a(href='/auth/login') Войти
     div
-        h2 Список элементов:
-        ul(id='list-item')
-            each row in rows
-                li(id='item' + row.id)
-                    span(class='index')
-                        = row.id + ')'
-                    span(name='all')
-                        span(name='text')
-                            = row.text
-                        input(type='button' name='btnEdit' value='ред.')
-                        input(type='button' name='btnDel' value='X')
-
-    script.
-        sort_type = '#{sortType}';
-    div(id='test')
-    script(src='/javascripts/script.js')
+        a(href='/auth/register') Зарегистрироваться

@@ -7,8 +7,8 @@ function createListSortButton() {
     const sort_buttons = document.createElement('ul');
     let html = '';
     for (let i = 0; i < sort_value.length; i++) {
-        html += `<li><input type=\"radio\" name=\"sortType\" 
-                value='${sort_value[i]}'>${sort_text[i]}</li>`;
+        html += `<li><label><input type=\"radio\" name=\"sortType\" 
+                value='${sort_value[i]}'>${sort_text[i]}</label></li>`;
     }
     sort_buttons.innerHTML = html;
     document.getElementById('sort-form').appendChild(sort_buttons);
@@ -25,9 +25,9 @@ sort_buttons.forEach(button => {
 const items = document.querySelectorAll('#list-item > li');
 items.forEach(item => {
     const btnEdit = item.querySelector('input[name="btnEdit"]');
-    btnEdit.addEventListener('click',() => editItem(item.id));
+    btnEdit.addEventListener('click', () => editItem(item.id));
     const btnDel = item.querySelector('input[name="btnDel"]');
-    btnDel.addEventListener('click',() => deleteItem(item.id));
+    btnDel.addEventListener('click', () => deleteItem(item.id));
 });
 
 function editItem(id) {
@@ -41,7 +41,7 @@ function editItem(id) {
 
     editArea.innerHTML = `<input name="text" value="${text}">`;
 
-    const btnOk =  document.createElement('input');
+    const btnOk = document.createElement('input');
     btnOk.type = 'button';
     btnOk.name = 'btnOk';
     btnOk.value = 'Ок';
@@ -50,7 +50,7 @@ function editItem(id) {
     });
     editArea.appendChild(btnOk);
 
-    const btnCancel =  document.createElement('input');
+    const btnCancel = document.createElement('input');
     btnCancel.type = 'button';
     btnCancel.name = 'btnCancel';
     btnCancel.value = 'Отмена';
@@ -65,7 +65,7 @@ function editItem(id) {
 function editOk(id) {
     const item = document.getElementById(id);
     if (item.querySelector('input[name="text"]').value !== '') {
-        post('/' + id,
+        post('/notes/' + id,
             (content) => item.querySelector('span[name="text"]').textContent
                 = content.text,
             {id: id, text: item.querySelector('input[name="text"]').value}
@@ -81,7 +81,7 @@ function removeEdit(id) {
 }
 
 function deleteItem(id) {
-    post('/delete',
+    post('/notes/delete',
         () => document.getElementById(id).remove(),
         {id: id});
 }
@@ -96,6 +96,7 @@ function post(url, callback, content) {
             callback(content, data.target.response);
         } else {
             alert('Ошибка: ' + data.target.response.error);
+            console.log(data.target.response.error);
         }
     });
     request.send(JSON.stringify(content));

@@ -8,12 +8,6 @@ h1
     color: #6d22c8;
 }
 
-#input-text
-{
-    display: block;
-    margin-bottom: 20px;
-}
-
 span
 {
     margin-right: 10px;
@@ -43,4 +37,17 @@ li
 {
     font-weight: bold;
     padding-right: 5px;
+}
+
+.input-block
+{
+    display: block;
+    margin-bottom: 20px;
+}
+
+.error
+{
+    color: red;
+
+    margin-bottom: 5px;
 }
