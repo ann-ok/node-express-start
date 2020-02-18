@@ -19,26 +19,33 @@ router.get('/', isLoggedIn, function (req, res) {
     connection.query(SQL,
         [req.user[0].id],
         function (err, rows) {
-        if (err) throw err;
-        res.render('notes', {
-            title: 'Список элементов',
-            rows: rows,
-            sortType: req.query.sortType,
-            username: req.user[0].username
+            if (err) throw err;
+            res.render('notes', {
+                title: 'Список элементов',
+                rows: rows,
+                sortType: req.query.sortType,
+                errMsg: req.flash('error')[0],
+                auth: req.isAuthenticated(),
+                username: req.user[0].username
+            });
         });
-    });
     connection.end();
 });
 
 router.post('/', isLoggedIn, jsonParser, function (req, res) {
-    const connection = mysql.createConnection(require('../config/dbconfig'));
-    connection.connect();
-    connection.query('INSERT INTO data_element(text, user_id) VALUES (?, ?)',
-        [req.body.text, req.user[0].id],
-        function (err) {
-            res.redirect('/notes');
-        });
-    connection.end();
+    if (req.body.text !== '') {
+        const connection = mysql.createConnection(require('../config/dbconfig'));
+        connection.connect();
+        connection.query('INSERT INTO data_element(text, user_id) VALUES (?, ?)',
+            [req.body.text, req.user[0].id],
+            function (err) {
+                res.redirect('/notes');
+            });
+        connection.end();
+    } else {
+        req.flash('error', 'Поле не должен быть пустым');
+        res.redirect('/notes');
+    }
 });
 
 router.post('/delete', isLoggedIn, jsonParser, function (req, res) {
@@ -65,7 +72,7 @@ router.post('/:id', isLoggedIn, jsonParser, function (req, res) {
 
 module.exports = router;
 
-function isLoggedIn (req, res, next) {
+function isLoggedIn(req, res, next) {
     req.isAuthenticated()
         ? next()
         : res.redirect('/');

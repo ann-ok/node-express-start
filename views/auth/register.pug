@@ -1,0 +1,18 @@
+extends ../layouts/layout
+
+block content
+    div.container
+        h1
+            | Регистрация
+
+        form(method='post' action='/auth/register')
+            div.error= errMsg
+
+            div
+                label Имя пользователя:
+                    input.input-block(type='text' name='username' placeholder='введите логин')
+            div
+                label Пароль:
+                    input.input-block(type='password' name='password' placeholder='введите пароль')
+
+            input.input-block(type='submit' value='Зарегистрироваться')

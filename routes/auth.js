@@ -3,27 +3,31 @@ const router = express.Router();
 const passport = require('passport');
 
 router.get('/login', isLoggedIn, function (req, res) {
-    res.render('login', {title: 'Вход', errMsg: req.flash('error')[0]});
+    res.render('auth/login', {title: 'Вход', errMsg: req.flash('error')[0]});
 });
 
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/notes',
+    passport.authenticate('local', {
+        successRedirect: '/notes',
         failureRedirect: '/auth/login',
         badRequestMessage: 'Не все поля были заполнены',
-        failureFlash: true})
+        failureFlash: true
+    })
 );
 
 router.get('/register', isLoggedIn, function (req, res) {
-    res.render('register', {title: 'Регистрация', errMsg: req.flash('error')[0]});
+    res.render('auth/register', {title: 'Регистрация', errMsg: req.flash('error')[0]});
 });
 
 router.post('/register',
-        passport.authenticate('local-signup',
-            { successRedirect: '/notes',
-                failureRedirect: '/auth/register',
-                badRequestMessage: 'Не все поля были заполнены',
-                failureFlash: true}
-        )
+    passport.authenticate('local-signup',
+        {
+            successRedirect: '/notes',
+            failureRedirect: '/auth/register',
+            badRequestMessage: 'Не все поля были заполнены',
+            failureFlash: true
+        }
+    )
 );
 
 router.get('/logout', function (req, res) {
@@ -33,7 +37,7 @@ router.get('/logout', function (req, res) {
 
 module.exports = router;
 
-function isLoggedIn (req, res, next) {
+function isLoggedIn(req, res, next) {
     req.isAuthenticated()
         ? res.redirect('/notes')
         : next();

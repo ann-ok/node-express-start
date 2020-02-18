@@ -8,10 +8,13 @@ const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const favicon = require('serve-favicon');
+const fileUpload = require('express-fileupload');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const notesRouter = require('./routes/notes');
+const profileRouter = require('./routes/profile');
 const connection = require('./config/dbconfig');
 
 const app = express();
@@ -27,14 +30,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(session({secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true}));
 app.use(flash());
+app.use(fileUpload());
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/notes', notesRouter);
+app.use('/profile', profileRouter);
 
 app.use(function (req, res, next) {
     next(createError(404));

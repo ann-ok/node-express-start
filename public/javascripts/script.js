@@ -96,7 +96,6 @@ function post(url, callback, content) {
             callback(content, data.target.response);
         } else {
             alert('Ошибка: ' + data.target.response.error);
-            console.log(data.target.response.error);
         }
     });
     request.send(JSON.stringify(content));

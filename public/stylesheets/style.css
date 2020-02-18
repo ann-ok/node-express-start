@@ -1,53 +1,59 @@
-body
-{
+body {
     padding: 10px 50px;
 }
 
-h1
-{
+h1 {
     color: #6d22c8;
 }
 
-span
-{
+span {
     margin-right: 10px;
 }
 
-span[name="text"]
-{
+span[name="text"] {
     width: 200px;
     display: inline-block;
     overflow-wrap: break-word;
     vertical-align: middle;
 }
 
-ul
-{
+ul {
     padding-left: 10px;
     list-style-type: none;
 }
 
-li
-{
+li {
     display: block;
     margin-bottom: 5px;
 }
 
-.index
-{
+li input {
+    margin-right: 5px;
+}
+
+.index {
     font-weight: bold;
     padding-right: 5px;
 }
 
-.input-block
-{
+.input-block {
     display: block;
     margin-bottom: 20px;
 }
 
-.error
-{
+.error {
     color: red;
 
     margin-bottom: 5px;
 }
+
+a img {
+    width: 30px;
+    height: 30px;
+}
+
+img.logo {
+    width: 40px;
+    height: 40px;
+}
+

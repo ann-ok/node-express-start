@@ -1,0 +1,32 @@
+div.container
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href="/")
+            img.logo(src="/images/logo.svg")
+            | MySite
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+        div.collapse.navbar-collapse#navbarNav
+            ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href="/") Главная
+                li.nav-item
+                    a.nav-link(href="/notes") Список
+        div.navbar
+            div.row
+                if !auth
+                    div.col
+                        a(href='/auth/login') Войти
+                    div.col
+                        a(href='/auth/register') Зарегистрироваться
+                else
+                    div.col
+                        a(href='profile')
+                            img(src='/images/user.svg')
+                            = username
+                    div
+                        a(href='/auth/logout')
+                            img(src='/images/logout.svg')
+                            | Выйти
+
+

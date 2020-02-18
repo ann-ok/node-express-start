@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-    if (req.isAuthenticated()) {
-        res.redirect('/notes');
-    } else {
-        res.render('index', {title: 'Главная'});
-    }
+    const auth = req.isAuthenticated();
+    const username = auth ? req.user[0].username : '';
+    res.render('index', {
+        title: 'Главная',
+        auth: auth,
+        username: username
+    });
 });
 
 module.exports = router;

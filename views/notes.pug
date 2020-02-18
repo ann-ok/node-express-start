@@ -1,38 +1,37 @@
-extends layout
+extends layouts/layout
 
 block content
-    h1
-        | Добавление элемента в список
-        br
-        | с помощью js
+    div.container
+        h1
+            | Добавление элемента в список
+            br
+            | с помощью js
 
-    div
-        = 'Вы вошли как ' + username + ' '
-        a(href='/auth/logout') [выйти]
+        div.error= errMsg
 
-    form(method='post' action='/notes')
-        label Введите текст элемента:
-            input(class="input-block" type='text' name='text')
-        input(class="input-block" type='submit' value='Добавить')
+        form(method='post' action='/notes')
+            label Введите текст элемента:
+                input(class="input-block" type='text' name='text')
+            input(class="input-block" type='submit' value='Добавить')
 
-    div
-        h2 Сортировка:
-        form(id='sort-form' method='get' action='/notes')
+        div
+            h2 Сортировка:
+            form(id='sort-form' method='get' action='/notes')
 
-    div
-        h2 Список элементов:
-        ul(id='list-item')
-            each row in rows
-                li(id='item' + row.id)
-                    span(class='index')
-                        = row.id + ')'
-                    span(name='all')
-                        span(name='text')
-                            = row.text
-                        input(type='button' name='btnEdit' value='ред.')
-                        input(type='button' name='btnDel' value='X')
+        div
+            h2 Список элементов:
+            ul(id='list-item')
+                each row in rows
+                    li(id='item' + row.id)
+                        span(class='index')
+                            = row.id + ')'
+                        span(name='all')
+                            span(name='text')
+                                = row.text
+                            input(type='button' name='btnEdit' value='ред.')
+                            input(type='button' name='btnDel' value='X')
 
-    script.
-        sort_type = '#{sortType}';
+        script.
+            sort_type = '#{sortType}';
 
-    script(src='/javascripts/script.js')
+        script(src='/javascripts/script.js')
