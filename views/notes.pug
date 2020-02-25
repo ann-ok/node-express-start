@@ -21,13 +21,13 @@ block content
         div
             h2 Список элементов:
             ul(id='list-item')
-                each row in rows
-                    li(id='item' + row.id)
+                each element in elements
+                    li(id='item' + element.id)
                         span(class='index')
-                            = row.id + ')'
+                            = element.id + ')'
                         span(name='all')
                             span(name='text')
-                                = row.text
+                                = element.text
                             input(type='button' name='btnEdit' value='ред.')
                             input(type='button' name='btnDel' value='X')
 

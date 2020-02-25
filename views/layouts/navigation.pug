@@ -3,15 +3,22 @@ div.container
         a.navbar-brand(href="/")
             img.logo(src="/images/logo.svg")
             | MySite
-        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+
+        button.navbar-toggler(type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation")
             span.navbar-toggler-icon
+
         div.collapse.navbar-collapse#navbarNav
             ul.navbar-nav
                 li.nav-item
                     a.nav-link(href="/") Главная
                 li.nav-item
                     a.nav-link(href="/notes") Список
+
         div.navbar
             div.row
                 if !auth

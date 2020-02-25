@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/', function (req, res) {
     const auth = req.isAuthenticated();
-    const username = auth ? req.user[0].username : '';
+    const username = auth ? req.user.username : '';
     res.render('index', {
         title: 'Главная',
         auth: auth,

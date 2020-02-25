@@ -8,14 +8,14 @@ block content
 
         section
             div.row
-                form(method='post' action='/profile/upload' encType="multipart/form-data").col-lg-3
+                form(method='post' action='/profile/upload' encType="multipart/form-data").col-lg-3.col-md-4
                     div.row
                         img(src=image alt="Изображение профиля")
                     div.row
                         input(name='avatar' type='file' )
                     div.row
                         input(type='submit', value='Загрузить')
-                div.col-lg-9
+                div.col-lg-9.col-md-8
                     div.row
                         span Имя пользователя:
                         span= username

@@ -1,21 +1,30 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user');
+const models = require('../models');
+const bcrypt = require('bcrypt');
 
 module.exports = function (passport) {
+
     passport.use('local',
         new LocalStrategy({},
             function (username, password, done) {
-                User.findOne({username: username}, function (err, user) {
-                    if (err) {
-                        return done(err);
+                const validPassword = (password, hash) => {
+                    return bcrypt.compareSync(password, hash);
+                };
+
+                models.User.findOne({
+                    where: {
+                        username: username
                     }
+                }).then((user) => {
                     if (!user) {
                         return done(null, false, {message: 'Неверное имя пользователя'});
                     }
-                    if (!user.validPassword(password)) {
+                    if (!validPassword(password, user.password)) {
                         return done(null, false, {message: 'Неверный пароль'});
                     }
                     return done(null, user);
+                }).catch((err) => {
+                    done(err);
                 });
             }
         )
@@ -24,16 +33,24 @@ module.exports = function (passport) {
     passport.use('local-signup',
         new LocalStrategy({},
             function (username, password, done) {
-                User.findOne({username: username}, function (err, user) {
-                    if (err) {
-                        return done(err);
+                const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+
+                models.User.findOrCreate({
+                    where: {
+                        username: username
+                    },
+                    defaults: {
+                        password: hashedPassword
                     }
-                    if (user) {
-                        return done(null, false, {message: 'Такой пользователь уже существует'});
+                }).then(([newUser, created]) => {
+                    if (!created) {
+                        return done(null, false, {
+                            message: 'Такой пользователь уже существует'
+                        });
                     }
-                    User.create(username, password, function (err, user) {
-                        return done(null, user);
-                    });
+                    return done(null, newUser);
+                }).catch((err) => {
+                    done(err, null);
                 });
             }
         )
@@ -44,10 +61,8 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
-            err
-                ? done(err)
-                : done(null, user);
-        });
+        models.User.findByPk(id)
+            .then((user) => {done(null, user)})
+            .catch((err) => {done(err)});
     });
 };

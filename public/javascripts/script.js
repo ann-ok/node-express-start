@@ -92,6 +92,7 @@ function post(url, callback, content) {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.responseType = 'json';
     request.addEventListener('load', (data) => {
+        console.log(data.target.response);
         if (data.target.response.error == null) {
             callback(content, data.target.response);
         } else {
